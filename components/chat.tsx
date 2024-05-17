@@ -1,17 +1,31 @@
-"use client";
-
-import { useAssistant } from "ai/react";
-import { useRef, useEffect } from "react";
+import { useAssistant, Message } from "ai/react";
+import { useRef, useEffect, Dispatch, SetStateAction } from "react";
 import ChatMessage from "./chat-message";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { WeatherWidgetProps } from "./weather-widget";
 
-export default function Chat() {
+export default function Chat({
+  setWeatherData,
+}: {
+  setWeatherData: Dispatch<SetStateAction<Omit<WeatherWidgetProps, "isEmpty">>>;
+}) {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const { status, messages, submitMessage, input, handleInputChange } =
     useAssistant({
       api: "/api/assistant",
     });
+
+  const lastDataMessage = messages
+    .filter((m: Message) => m.role === "data")
+    .pop();
+
+  useEffect(() => {
+    setWeatherData((prevWeatherData: Omit<WeatherWidgetProps, "isEmpty">) => ({
+      ...prevWeatherData,
+      ...(lastDataMessage?.data as Object),
+    }));
+  }, [messages]);
 
   const scrollToBottom = () => {
     if (messagesEndRef.current) {

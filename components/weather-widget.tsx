@@ -1,10 +1,11 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-type Props = {
+export type WeatherWidgetProps = {
   location: string;
   temperature: string;
   conditions: string;
+  unit: string;
   isEmpty: boolean;
 };
 
@@ -12,8 +13,9 @@ export default function WeatherWidget({
   location = "---",
   temperature = "---",
   conditions = "Sunny",
-  isEmpty = false,
-}: Props) {
+  unit = "C",
+  isEmpty,
+}: WeatherWidgetProps) {
   const conditionClassMap: Record<string, string> = {
     Cloudy: "bg-gradient-to-tr from-[#b6c6c9] to-[#8fa3ad]",
     Sunny: "bg-gradient-to-bl from-[#ffffd0] to-[#007cf0]",
@@ -43,7 +45,7 @@ export default function WeatherWidget({
       <div className="flex gap-1 flex-col justify-center items-center">
         <p>{location}</p>
         <h2 className="text-[8em] font-medium">
-          {temperature !== "---" ? `${temperature}°C` : temperature}
+          {temperature !== "---" ? `${temperature}°${unit}` : temperature}
         </h2>
         <p>{conditions}</p>
       </div>
