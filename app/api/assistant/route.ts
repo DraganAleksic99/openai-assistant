@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
   return AssistantResponse(
     { threadId, messageId: createdMessage.id },
-    async ({ forwardStream, sendDataMessage }) => {
+    async ({ forwardStream, sendDataMessage, sendMessage }) => {
       const runStream = openai.beta.threads.runs.stream(threadId, {
         assistant_id:
           process.env.OPENAI_ASSISTANT_ID ??
@@ -26,6 +26,39 @@ export async function POST(req: Request) {
             throw new Error("OPENAI_ASSISTANT_ID variable is not set");
           })(),
       });
+
+      let codeInterpreterInput = "";
+      let codeInterpreterId = "";
+
+      runStream
+        .on("toolCallDelta", async delta => {
+          if (delta.type !== "code_interpreter") return;
+
+          if (delta.code_interpreter?.input) {
+            for await (let textDelta of delta.code_interpreter.input) {
+              codeInterpreterInput += textDelta;
+            }
+            codeInterpreterId = delta.id || "";
+          }
+
+          if (delta.code_interpreter?.outputs) {
+            sendDataMessage({
+              role: "data",
+              data: {
+                // @ts-ignore
+                temperature: delta.code_interpreter.outputs[0].logs,
+                unit: "F",
+              },
+            });
+          }
+        })
+        .on("messageCreated", () => {
+          sendMessage({
+            id: codeInterpreterId,
+            role: "assistant",
+            content: [{ type: "text", text: { value: codeInterpreterInput } }],
+          });
+        });
 
       let runResult = await forwardStream(runStream);
 
