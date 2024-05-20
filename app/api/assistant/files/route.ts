@@ -26,3 +26,25 @@ export async function POST(req: Request) {
 
   return new Response();
 }
+
+// list files in assistant's vector store
+export async function GET() {
+  const vectorStoreId = await getVectorStore();
+  const fileList = await openai.beta.vectorStores.files.list(vectorStoreId);
+
+  const filesArray = await Promise.all(
+    fileList.data.map(async file => {
+      const fileDetails = await openai.files.retrieve(file.id);
+      const vectorFileDetails = await openai.beta.vectorStores.files.retrieve(
+        vectorStoreId,
+        file.id
+      );
+      return {
+        file_id: file.id,
+        filename: fileDetails.filename,
+        status: vectorFileDetails.status,
+      };
+    })
+  );
+  return Response.json(filesArray);
+}
