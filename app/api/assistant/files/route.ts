@@ -48,3 +48,14 @@ export async function GET() {
   );
   return Response.json(filesArray);
 }
+
+// delete file from assistant's vector store
+export async function DELETE(req: Request) {
+  const body = await req.json();
+  const fileId = body.fileId;
+
+  const vectorStoreId = await getVectorStore();
+  await openai.beta.vectorStores.files.del(vectorStoreId, fileId);
+
+  return new Response();
+}
