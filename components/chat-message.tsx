@@ -1,13 +1,19 @@
 import Markdown from "react-markdown";
-import { Message } from "ai";
+import { Message } from "ai/react";
 
 const UserMessage = ({ text }: { text: string | undefined }) => {
-  return <div className="text-black bg-white self-end">{text}</div>;
+  return (
+    <div className="text-white bg-black self-end py-2 px-4 rounded-3xl">
+      {text}
+    </div>
+  );
 };
 
 const AssistantMessage = ({ text }: { text: string | undefined }) => {
+  if (!text) return;
+
   return (
-    <div className="bg-[#efefef]">
+    <div className="bg-[#efefef] py-2 px-4 rounded-3xl w-fit">
       <Markdown>{text}</Markdown>
     </div>
   );

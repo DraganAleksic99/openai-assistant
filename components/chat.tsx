@@ -39,7 +39,7 @@ export default function Chat({
 
   return (
     <div className="flex flex-col-reverse h-full w-full">
-      <div className="flex flex-col order-2 flex-grow overflow-y-auto p-3 whitespace-pre-wrap space-y-4">
+      <div className="flex flex-col order-2 flex-grow overflow-y-auto p-3 pt-5 whitespace-pre-wrap space-y-4">
         {messages.map((msg, index) => (
           <ChatMessage key={index} role={msg.role} content={msg.content} />
         ))}

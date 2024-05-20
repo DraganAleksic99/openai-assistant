@@ -17,10 +17,14 @@ export default function Home() {
   });
 
   return (
-    <main className="flex h-screen items-center justify-center">
-      <WeatherWidget {...weatherData} isEmpty={!weatherData.location} />
-      <FileViewer />
-      <div className="w-full h-full max-w-[700px]">
+    <main className="flex h-screen items-center justify-center gap-[5vw]">
+      <div className="flex w-full h-screen flex-grow basis-2/5">
+        <div className="flex flex-col gap-5 w-full m-5 justify-between h-[calc(100vh-60px)]">
+          <WeatherWidget {...weatherData} isEmpty={!weatherData.location} />
+          <FileViewer />
+        </div>
+      </div>
+      <div className="w-full h-full flex-grow basis-3/5">
         <Chat setWeatherData={setWeatherData} />
       </div>
     </main>

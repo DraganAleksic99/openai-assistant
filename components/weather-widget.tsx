@@ -26,7 +26,7 @@ export default function WeatherWidget({
 
   if (isEmpty) {
     return (
-      <div className="w-full h-full p-5 text-white flex justify-center items-center bg-gradient-to-tr from-[#b6c6c9] to-[#8fa3ad]">
+      <div className="w-full h-full p-5 text-white flex justify-center items-center bg-gradient-to-tr from-[#b6c6c9] to-[#8fa3ad] rounded-2xl">
         <div className="flex gap-1 flex-col justify-center items-center">
           <p>Enter a city to see local weather</p>
           <p>Try: what's the weather like in Belgrade?</p>
@@ -36,18 +36,18 @@ export default function WeatherWidget({
   }
 
   const weatherClass = cn(
-    "w-full h-full p-5 text-white flex justify-center items-center",
+    "w-full h-full p-5 text-white flex justify-center items-center rounded-3xl",
     `${conditionClassMap[conditions] || "bg-gradient-to-bl from-[#ffffd0] to-[#007cf0]"}`
   );
 
   return (
     <div className={weatherClass}>
       <div className="flex gap-1 flex-col justify-center items-center">
-        <p>{location}</p>
-        <h2 className="text-[8em] font-medium">
+        <p className="text-lg">{location}</p>
+        <h2 className="text-[7em] font-medium">
           {temperature !== "---" ? `${temperature}°${unit}` : temperature}
         </h2>
-        <p>{conditions}</p>
+        <p className="text-lg">{conditions}</p>
       </div>
     </div>
   );
