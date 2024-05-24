@@ -1,11 +1,8 @@
 import React from "react";
 import { cn } from "@/lib/utils";
+import { WeatherData } from "@/app/page";
 
-export type WeatherWidgetProps = {
-  location: string;
-  temperature: string;
-  conditions: string;
-  unit: string;
+type WeatherWidgetProps = WeatherData & {
   isEmpty: boolean;
 };
 

@@ -3,12 +3,12 @@ import { useRef, useEffect, Dispatch, SetStateAction, useState } from "react";
 import ChatMessage from "./chat-message";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { WeatherWidgetProps } from "./weather-widget";
+import { WeatherData } from "@/app/page";
 
 export default function Chat({
   setWeatherData,
 }: {
-  setWeatherData: Dispatch<SetStateAction<Omit<WeatherWidgetProps, "isEmpty">>>;
+  setWeatherData: Dispatch<SetStateAction<WeatherData>>;
 }) {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -34,12 +34,10 @@ export default function Chat({
 
   useEffect(() => {
     if (lastDataMessage) {
-      setWeatherData(
-        (prevWeatherData: Omit<WeatherWidgetProps, "isEmpty">) => ({
-          ...prevWeatherData,
-          ...(lastDataMessage?.data as Object),
-        })
-      );
+      setWeatherData((prevWeatherData: WeatherData) => ({
+        ...prevWeatherData,
+        ...(lastDataMessage?.data as Object),
+      }));
     }
 
     if ([...messages].pop()?.role === "assistant") {

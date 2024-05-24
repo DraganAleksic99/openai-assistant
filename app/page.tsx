@@ -3,13 +3,17 @@
 import { useState } from "react";
 import Chat from "@/components/chat";
 import WeatherWidget from "@/components/weather-widget";
-import { WeatherWidgetProps } from "@/components/weather-widget";
 import FileViewer from "@/components/file-viewer";
 
+export type WeatherData = {
+  location: string;
+  temperature: string;
+  conditions: string;
+  unit: string;
+};
+
 export default function Home() {
-  const [weatherData, setWeatherData] = useState<
-    Omit<WeatherWidgetProps, "isEmpty">
-  >({
+  const [weatherData, setWeatherData] = useState<WeatherData>({
     location: "",
     temperature: "",
     conditions: "",
