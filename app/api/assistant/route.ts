@@ -29,6 +29,7 @@ export async function POST(req: Request) {
 
       let codeInterpreterInput = "";
       let codeInterpreterId = "";
+      let codeInterpreterInvoked = false;
 
       runStream
         .on("toolCallDelta", async delta => {
@@ -51,8 +52,12 @@ export async function POST(req: Request) {
               },
             });
           }
+
+          codeInterpreterInvoked = true;
         })
         .on("messageCreated", () => {
+          if (!codeInterpreterInvoked) return;
+
           sendMessage({
             id: codeInterpreterId,
             role: "assistant",

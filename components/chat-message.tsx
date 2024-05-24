@@ -10,8 +10,6 @@ const UserMessage = ({ text }: { text: string | undefined }) => {
 };
 
 const AssistantMessage = ({ text }: { text: string | undefined }) => {
-  if (!text) return;
-
   return (
     <div className="bg-[#efefef] py-2 px-4 rounded-3xl w-fit">
       <Markdown>{text}</Markdown>
