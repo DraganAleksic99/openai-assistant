@@ -1,5 +1,7 @@
 import { ChangeEvent, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Label } from "./ui/label";
+import { Input } from "./ui/input";
 
 export default function FileViewer() {
   const [files, setFiles] = useState([]);
@@ -88,13 +90,13 @@ export default function FileViewer() {
         )}
       </div>
       <div className="flex justify-center p-3">
-        <label
+        <Label
           htmlFor="file-upload"
           className="bg-black text-white py-2 px-6 rounded-3xl text-center inline-block cursor-pointer"
         >
           Attach files
-        </label>
-        <input
+        </Label>
+        <Input
           type="file"
           multiple
           id="file-upload"
