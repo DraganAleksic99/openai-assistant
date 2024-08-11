@@ -8,7 +8,7 @@ Simple demo app demonstrating use of OpenAI [Assistants API](https://platform.op
 
 ## Stack
 
-- Framework: [Next.js](https://nextjs.org/)
+- Framework: [Next.js](https://nextjs.org/) 14 (App Router)
 - Chat functionality: [Vercel AI SDK](https://sdk.vercel.ai/docs/introduction)
 - Assistant: [OpenAI Assistant API](https://platform.openai.com/docs/assistants/overview)
 - Styling: [Tailwind CSS](https://tailwindcss.com/)
