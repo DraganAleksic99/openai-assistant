@@ -2,11 +2,13 @@
 
 Simple demo app demonstrating use of OpenAI [Assistants API](https://platform.openai.com/docs/assistants/overview) in [Next.js](https://nextjs.org/) and [Vercel AI SDK](https://sdk.vercel.ai/docs/introduction) with [streaming](https://platform.openai.com/docs/assistants/overview/step-4-create-a-run), tool use ([code interpreter](https://platform.openai.com/docs/assistants/tools/code-interpreter) and [file search](https://platform.openai.com/docs/assistants/tools/file-search)), and [function calling](https://platform.openai.com/docs/assistants/tools/function-calling).
 
+<br>
+
 ![](opeanai-assistant.png)
 
 ## Stack
 
-- Framework: [Next.js](https://nextjs.org/)
+- Framework: [Next.js](https://nextjs.org/) 14 (App Router)
 - Chat functionality: [Vercel AI SDK](https://sdk.vercel.ai/docs/introduction)
 - Assistant: [OpenAI Assistant API](https://platform.openai.com/docs/assistants/overview)
 - Styling: [Tailwind CSS](https://tailwindcss.com/)
